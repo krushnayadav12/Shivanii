@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shivani ❤️ Be My Valentine</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', cursive, sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #ffffff);
+    overflow: hidden;
+}
+
+/* Card */
+.container {
+    text-align: center;
+    background: white;
+    padding: 45px;
+    border-radius: 25px;
+    box-shadow: 0 10px 35px rgba(255,105,180,0.35);
+    position: relative;
+}
+
+.name {
+    font-size: 2.7rem;
+    font-weight: bold;
+    color: #ff1a75;
+}
+
+h1 {
+    color: #ff4d88;
+}
+
+/* Signature */
+.from {
+    margin-top: 20px;
+    color: #ff80aa;
+    font-style: italic;
+}
+
+/* Buttons */
+.buttons {
+    position: relative;
+    height: 160px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 14px 35px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.2s;
+}
+
+#yesBtn {
+    background: #ff4d88;
+    color: white;
+    left: 35%;
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background: white;
+    border: 2px solid #ff4d88;
+    color: #ff4d88;
+    left: 60%;
+}
+
+/* Meme */
+.meme {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.message {
+    font-size: 30px;
+    color: #ff4d88;
+    font-weight: bold;
+}
+
+.meme img {
+    width: 260px;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+/* Love popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff4d88;
+    color: white;
+    padding: 25px 40px;
+    border-radius: 20px;
+    font-size: 24px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    animation: pop 0.4s ease;
+    z-index: 10;
+}
+
+@keyframes pop {
+    from { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Hearts */
+.hearts {
+    position: absolute;
+    font-size: 22px;
+    animation: rise 3s linear infinite;
+}
+
+@keyframes rise {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="main">
+    <div class="name">Shivani ❤️</div>
+    <h1>Will you be my Valentine?</h1>
+
+    <div class="buttons" id="btnArea">
+        <button id="yesBtn">Yes 💕</button>
+        <button id="noBtn">No 😜</button>
+    </div>
+
+    <div class="from">From Yours Krushna 💌</div>
+</div>
+
+<div class="meme" id="memeSection">
+    <div class="message">Good choice ❤️</div>
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+</div>
+
+<div class="popup" id="lovePopup">I love you So Much Golyaa.. ❤️</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const music = document.getElementById("bgMusic");
+const main = document.getElementById("main");
+const meme = document.getElementById("memeSection");
+const popup = document.getElementById("lovePopup");
+const btnArea = document.getElementById("btnArea");
+
+/* Start music */
+document.body.addEventListener("click", () => music.play(), { once:true });
+
+/* Naughty but visible NO button */
+noBtn.addEventListener("mouseover", () => {
+    const area = btnArea.getBoundingClientRect();
+
+    const maxX = area.width - 100;
+    const maxY = area.height - 50;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+/* YES clicked */
+yesBtn.addEventListener("click", () => {
+    main.style.display = "none";
+    meme.style.display = "flex";
+    popup.style.display = "block";
+    music.play();
+    createHearts();
+});
+
+/* Floating hearts */
+function createHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "hearts";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+    }, 200);
+}
+</script>
+
+</body>
+</html>
